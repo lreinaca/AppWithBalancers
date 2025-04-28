@@ -1,0 +1,50 @@
+
+services:
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    networks:
+      - eam_electiva
+
+    
+  backend:
+    build: ./backend
+    container_name: backend
+    networks:
+      - eam_electiva
+
+  adminer_balancer:
+    image: adminer
+    container_name: adminer_balancer
+    restart: always
+    ports:
+      - "8081:8080"
+    networks:
+      - eam_electiva
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - frontend
+      - backend
+      - adminer_balancer
+    networks:
+      - eam_electiva
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+ 
+
+networks:
+  eam_electiva:
+    driver: bridge
+    name: eam_electiva

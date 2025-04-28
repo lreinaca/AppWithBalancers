@@ -1,0 +1,35 @@
+# General
+*.log
+*.pyc
+__pycache__/
+.env
+.env.*  # Por si manejas varios entornos
+
+# Docker
+*.pid
+*.sock
+docker-compose.override.yml
+# Volúmenes o archivos generados en tiempo de ejecución (si aplican)
+
+# Python Backend
+venv/
+env/
+# Si usas poetry
+.poetry/
+
+# Node Frontend
+node_modules/
+dist/
+build/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# OS
+.DS_Store
+Thumbs.db
+
